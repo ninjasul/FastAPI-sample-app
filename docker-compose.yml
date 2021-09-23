@@ -9,9 +9,9 @@ services:
         volumes:
           - pgdata:/var/lib/postgresql/data
         environment:
-          POSTGRES_USER=postgres
-          POSTGRES_PASSWORD=postgres
-          POSTGRES_DB=postgres
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_DB=postgres
         restart: always
 
     pgadmin:
@@ -24,8 +24,8 @@ services:
         ports:
           - "80:5050"
         environment:
-          PGADMIN_DEFAULT_EMAIL=admin@example.com
-          PGADMIN_DEFAULT_PASSWORD=admin
+          - PGADMIN_DEFAULT_EMAIL=admin@example.com
+          - PGADMIN_DEFAULT_PASSWORD=admin
         restart: always
 
     web:
