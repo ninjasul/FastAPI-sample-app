@@ -2,20 +2,43 @@ version: "3.9"
 
 services: 
     db:
+        container_name: db
         image: postgres:13
+        ports:
+          - "5432:5432"
+        volumes:
+          - pgdata:/var/lib/postgresql/data
+        environment:
+          POSTGRES_USER=postgres
+          POSTGRES_PASSWORD=postgres
+          POSTGRES_DB=postgres
+        restart: always
 
-    
     pgadmin:
+        container_name: pgadmin
         image: dpage/pgadmin4
         logging:
             driver: none
+        volumes:
+          - pgadmindata:/var/lib/pgadmin
         ports:
-            - "5050:80"
+          - "80:5050"
+        environment:
+          PGADMIN_DEFAULT_EMAIL=admin@example.com
+          PGADMIN_DEFAULT_PASSWORD=admin
+        restart: always
 
     web:
+        container_name: fastapi
+        build: .
         command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
         volumes: 
           - .:/code
+        ports:
+          - "8000:8000"
+        depends_on:
+          - db
+        restart: always
 
 volumes: 
   pgdata:
