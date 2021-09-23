@@ -22,7 +22,7 @@ services:
         volumes:
           - pgadmindata:/var/lib/pgadmin
         ports:
-          - "80:5050"
+          - "5050:80"
         environment:
           - PGADMIN_DEFAULT_EMAIL=admin@example.com
           - PGADMIN_DEFAULT_PASSWORD=admin
